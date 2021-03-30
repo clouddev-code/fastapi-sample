@@ -1,0 +1,17 @@
+# Python image to use.
+FROM python:3.9.2-alpine3.12
+
+ENV PYTHONUNBUFFERED True
+# Set the working directory to /app
+WORKDIR /opt/app
+
+# copy the requirements file used for dependencies
+COPY . .
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8000
+
+# Run app.py when the container launches
+ENTRYPOINT ["uvicorn", "app:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
